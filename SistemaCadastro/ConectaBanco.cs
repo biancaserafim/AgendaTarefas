@@ -6,19 +6,16 @@ namespace SistemaCadastro
 {
     public class ConectaBanco
     {
-        // Configuração da conexão com o banco 'sistema_agenda'
+        // dados de conexao
         private string connectionString = "server=localhost;uid=root;pwd=;database=sistema_agenda";
 
-        // Variável para retornar mensagens de erro ou sucesso
+        // armazena avisos do sistema
         public string mensagem = "";
 
-     
-        // 1. LISTAR (Chama a procedure sp_ListaTarefas)
-       
+        // busca lista via procedure
         public DataTable ListarTarefas()
         {
             DataTable tabela = new DataTable();
-
             using (MySqlConnection conexao = new MySqlConnection(connectionString))
             {
                 try
@@ -26,25 +23,19 @@ namespace SistemaCadastro
                     conexao.Open();
                     using (MySqlCommand cmd = new MySqlCommand("sp_ListaTarefas", conexao))
                     {
-                        // Define que é uma Stored Procedure
-                        cmd.CommandType = CommandType.StoredProcedure;
-
+                        cmd.CommandType = CommandType.StoredProcedure; // define uso de procedure
                         using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
                         {
                             adaptador.Fill(tabela);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    mensagem = "Erro ao listar: " + ex.Message;
-                }
+                catch (Exception ex) { mensagem = "Erro: " + ex.Message; }
             }
             return tabela;
         }
 
-        // 2. CADASTRAR (Chama a procedure sp_InsereTarefa)
-      
+        // insere nova tarefa via procedure
         public bool CadastrarTarefa(string descricao, DateTime data, int concluida)
         {
             using (MySqlConnection conexao = new MySqlConnection(connectionString))
@@ -55,28 +46,19 @@ namespace SistemaCadastro
                     using (MySqlCommand cmd = new MySqlCommand("sp_InsereTarefa", conexao))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-
-                        // Passa os parâmetros para o banco
                         cmd.Parameters.AddWithValue("p_descricao", descricao);
                         cmd.Parameters.AddWithValue("p_data", data);
                         cmd.Parameters.AddWithValue("p_concluida", concluida);
-
                         cmd.ExecuteNonQuery();
                     }
-                    mensagem = "Cadastro realizado com sucesso!";
+                    mensagem = "Salvo!";
                     return true;
                 }
-                catch (Exception ex)
-                {
-                    mensagem = "Erro ao cadastrar: " + ex.Message;
-                    return false;
-                }
+                catch (Exception ex) { mensagem = "Erro: " + ex.Message; return false; }
             }
         }
 
-       
-        // 3. ALTERAR (Chama a procedure sp_AlteraTarefa)
-       
+        // altera tarefa existente via procedure
         public bool AlterarTarefa(int id, string descricao, DateTime data, int concluida)
         {
             using (MySqlConnection conexao = new MySqlConnection(connectionString))
@@ -87,27 +69,20 @@ namespace SistemaCadastro
                     using (MySqlCommand cmd = new MySqlCommand("sp_AlteraTarefa", conexao))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-
                         cmd.Parameters.AddWithValue("p_id", id);
                         cmd.Parameters.AddWithValue("p_descricao", descricao);
                         cmd.Parameters.AddWithValue("p_data", data);
                         cmd.Parameters.AddWithValue("p_concluida", concluida);
-
                         cmd.ExecuteNonQuery();
                     }
-                    mensagem = "Alteração realizada com sucesso!";
+                    mensagem = "Alterado!";
                     return true;
                 }
-                catch (Exception ex)
-                {
-                    mensagem = "Erro ao alterar: " + ex.Message;
-                    return false;
-                }
+                catch (Exception ex) { mensagem = "Erro: " + ex.Message; return false; }
             }
         }
 
-        // 4. EXCLUIR (Chama a procedure sp_RemoveTarefa)
-       
+        // remove tarefa via procedure
         public bool ExcluirTarefa(int id)
         {
             using (MySqlConnection conexao = new MySqlConnection(connectionString))
@@ -118,19 +93,13 @@ namespace SistemaCadastro
                     using (MySqlCommand cmd = new MySqlCommand("sp_RemoveTarefa", conexao))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-
                         cmd.Parameters.AddWithValue("p_id", id);
-
                         cmd.ExecuteNonQuery();
                     }
-                    mensagem = "Exclusão realizada com sucesso!";
+                    mensagem = "Excluido!";
                     return true;
                 }
-                catch (Exception ex)
-                {
-                    mensagem = "Erro ao excluir: " + ex.Message;
-                    return false;
-                }
+                catch (Exception ex) { mensagem = "Erro: " + ex.Message; return false; }
             }
         }
     }
