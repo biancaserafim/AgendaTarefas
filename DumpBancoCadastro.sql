@@ -1,73 +1,57 @@
-DROP TABLE IF EXISTS `generos`;
+-- 1. Criar o Banco de Dados
+CREATE DATABASE IF NOT EXISTS `sistema_agenda`;
+USE `sistema_agenda`;
 
-CREATE TABLE `generos` (
-  `idgenero` int NOT NULL AUTO_INCREMENT,
-  `genero` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idgenero`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 2. Criar a Tabela (conforme sua imagem do Workbench)
+DROP TABLE IF EXISTS `tarefas`;
+CREATE TABLE `tarefas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) NOT NULL,
+  `data_tarefa` datetime DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-LOCK TABLES `generos` WRITE;
-
-INSERT INTO `generos` VALUES (1,'Rock'),(2,'Metal'),(3,'Pagode'),(4,'Gospel'),(5,'Funk');
-
-UNLOCK TABLES;
-
-DROP TABLE IF EXISTS `bandas`;
-
-CREATE TABLE `bandas` (
-  `idbandas` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) DEFAULT NULL,
-  `integrantes` int DEFAULT NULL,
-  `ranking` int DEFAULT NULL,
-  `fk_genero` int DEFAULT NULL,
-  PRIMARY KEY (`idbandas`),
-  KEY `genero_idx` (`fk_genero`),
-  CONSTRAINT `genero` FOREIGN KEY (`fk_genero`) REFERENCES `generos` (`idgenero`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
-
-LOCK TABLES `bandas` WRITE;
-
-INSERT INTO `bandas` VALUES (1,'Skank',5,1,1),(2,'Metallica',4,1,1);
-
-UNLOCK TABLES;
-
+-- 3. Procedure: Listar
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insereBanda`(nome varchar(45), 
-                                   integrantes int, ranking int, genero int)
+CREATE PROCEDURE `sp_ListaTarefas`()
 BEGIN
-INSERT INTO `bandas`
-(`nome`,
-`integrantes`,
-`ranking`,
-`fk_genero`)
-VALUES
-(nome,
-integrantes,
-ranking,
-genero);
+    SELECT id, titulo, data_tarefa, status FROM tarefas ORDER BY data_tarefa;
 END ;;
 DELIMITER ;
 
+-- 4. Procedure: Inserir
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listaBandas`()
+CREATE PROCEDURE `sp_InsereTarefa`(
+    p_descricao varchar(255), 
+    p_data datetime, 
+    p_concluida varchar(50)
+)
 BEGIN
-     SELECT 
-        b.idbandas, 
-        b.nome, 
-        b.ranking, 
-        g.genero
-    FROM bandas b
-    INNER JOIN generos g 
-        ON g.idgenero = b.fk_genero;
+    INSERT INTO tarefas (titulo, data_tarefa, status) 
+    VALUES (p_descricao, p_data, p_concluida);
 END ;;
 DELIMITER ;
 
+-- 5. Procedure: Alterar
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listaGeneros`()
+CREATE PROCEDURE `sp_AlteraTarefa`(
+    p_id int,
+    p_descricao varchar(255), 
+    p_data datetime, 
+    p_concluida varchar(50)
+)
 BEGIN
-   select * from generos;
-END;;
+    UPDATE tarefas 
+    SET titulo = p_descricao, data_tarefa = p_data, status = p_concluida 
+    WHERE id = p_id;
+END ;;
+DELIMITER ;
+
+-- 6. Procedure: Remover
+DELIMITER ;;
+CREATE PROCEDURE `sp_RemoveTarefa`(p_id int)
+BEGIN
+    DELETE FROM tarefas WHERE id = p_id;
+END ;;
 DELIMITER ;
