@@ -1,53 +1,137 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using MySql.Data;
 using System.Data;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using MySql.Data.MySqlClient;
 
 namespace SistemaCadastro
 {
     public class ConectaBanco
     {
-        public const string SERVER = "localhost";
-        public const int PORT = 3306;
-        public const string DATABASE = "sistema_cadastro_aula";
-        public const string USER = "root";
-        public const string PASSWORD = "compServer";
+        // Configuração da conexão com o banco 'sistema_agenda'
+        private string connectionString = "server=localhost;uid=root;pwd=;database=sistema_agenda";
 
-        MySqlConnection conexao = new MySqlConnection(
-            $"server={SERVER};" +
-            $"port={PORT};" +
-            $"database={DATABASE};" +
-            $"user id={USER};" +
-            $"password={PASSWORD};");
+        // Variável para retornar mensagens de erro ou sucesso
+        public string mensagem = "";
 
-        public string mensagem;
-
-        public bool insereBanda(Banda novaBanda)
+     
+        // 1. LISTAR (Chama a procedure sp_ListaTarefas)
+       
+        public DataTable ListarTarefas()
         {
-            try
-            {
-                conexao.Open();
-                MySqlCommand cmd =
-                    new MySqlCommand("sp_insereBanda", conexao);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("nome", novaBanda.nome);
-                cmd.Parameters.AddWithValue("integrantes", novaBanda.integrantes);
-                cmd.Parameters.AddWithValue("ranking", novaBanda.ranking);
-                cmd.Parameters.AddWithValue("genero", novaBanda.genero);
-                cmd.ExecuteNonQuery();//executar no banco
-                return true;
-            }
-            catch (MySqlException erro)
-            {
-                mensagem = erro.Message;
-                return false;
-            }
+            DataTable tabela = new DataTable();
 
-        }// fim do insereBanda
+            using (MySqlConnection conexao = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexao.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("sp_ListaTarefas", conexao))
+                    {
+                        // Define que é uma Stored Procedure
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        using (MySqlDataAdapter adaptador = new MySqlDataAdapter(cmd))
+                        {
+                            adaptador.Fill(tabela);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    mensagem = "Erro ao listar: " + ex.Message;
+                }
+            }
+            return tabela;
+        }
+
+        // 2. CADASTRAR (Chama a procedure sp_InsereTarefa)
+      
+        public bool CadastrarTarefa(string descricao, DateTime data, int concluida)
+        {
+            using (MySqlConnection conexao = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexao.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("sp_InsereTarefa", conexao))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Passa os parâmetros para o banco
+                        cmd.Parameters.AddWithValue("p_descricao", descricao);
+                        cmd.Parameters.AddWithValue("p_data", data);
+                        cmd.Parameters.AddWithValue("p_concluida", concluida);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    mensagem = "Cadastro realizado com sucesso!";
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    mensagem = "Erro ao cadastrar: " + ex.Message;
+                    return false;
+                }
+            }
+        }
+
+       
+        // 3. ALTERAR (Chama a procedure sp_AlteraTarefa)
+       
+        public bool AlterarTarefa(int id, string descricao, DateTime data, int concluida)
+        {
+            using (MySqlConnection conexao = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexao.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("sp_AlteraTarefa", conexao))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("p_id", id);
+                        cmd.Parameters.AddWithValue("p_descricao", descricao);
+                        cmd.Parameters.AddWithValue("p_data", data);
+                        cmd.Parameters.AddWithValue("p_concluida", concluida);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    mensagem = "Alteração realizada com sucesso!";
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    mensagem = "Erro ao alterar: " + ex.Message;
+                    return false;
+                }
+            }
+        }
+
+        // 4. EXCLUIR (Chama a procedure sp_RemoveTarefa)
+       
+        public bool ExcluirTarefa(int id)
+        {
+            using (MySqlConnection conexao = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexao.Open();
+                    using (MySqlCommand cmd = new MySqlCommand("sp_RemoveTarefa", conexao))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("p_id", id);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    mensagem = "Exclusão realizada com sucesso!";
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    mensagem = "Erro ao excluir: " + ex.Message;
+                    return false;
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace SistemaCadastro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Inicia o formulário principal da aplicação
             Application.Run(new Sistema());
         }
     }
