@@ -12,7 +12,7 @@ namespace SistemaCadastro
         // armazena avisos do sistema
         public string mensagem = "";
 
-        // busca lista via procedure
+        // stored procedure
         public DataTable ListarTarefas()
         {
             DataTable tabela = new DataTable();

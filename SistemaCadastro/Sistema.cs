@@ -187,7 +187,7 @@ namespace SistemaCadastro
         // encerra aplicacao
         private void button2_Click(object sender, EventArgs e) => Application.Exit();
     
-    // métodos exigidos pelo Designer (não remover)
+  
 private void label5_Click(object sender, EventArgs e)
         {
         }

@@ -30,16 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sistema));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnMenuBuscar = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.btnMenuAdicionar = new System.Windows.Forms.Button();
+            this.btnMenuBuscar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblMensagem = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.txtId = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.label1 = new System.Windows.Forms.Label();
             this.tbpBuscar = new System.Windows.Forms.TabPage();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
@@ -55,15 +56,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControlPrincipal = new System.Windows.Forms.TabControl();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.tbpBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarefas)).BeginInit();
             this.tbpCadastrar.SuspendLayout();
             this.tabControlPrincipal.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -80,23 +80,16 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // btnMenuBuscar
+            // panel4
             // 
-            this.btnMenuBuscar.FlatAppearance.BorderSize = 0;
-            this.btnMenuBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenuBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.btnMenuBuscar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnMenuBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMenuBuscar.Location = new System.Drawing.Point(33, 207);
-            this.btnMenuBuscar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnMenuBuscar.Name = "btnMenuBuscar";
-            this.btnMenuBuscar.Size = new System.Drawing.Size(175, 60);
-            this.btnMenuBuscar.TabIndex = 5;
-            this.btnMenuBuscar.Text = "&Buscar";
-            this.btnMenuBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMenuBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnMenuBuscar.UseVisualStyleBackColor = true;
-            this.btnMenuBuscar.Click += new System.EventHandler(this.btnBusca_Click);
+            this.panel4.BackColor = System.Drawing.Color.Transparent;
+            this.panel4.Controls.Add(this.btnMenuAdicionar);
+            this.panel4.Controls.Add(this.btnMenuBuscar);
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(212, 535);
+            this.panel4.TabIndex = 17;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // btnMenuAdicionar
             // 
@@ -116,6 +109,47 @@
             this.btnMenuAdicionar.UseVisualStyleBackColor = true;
             this.btnMenuAdicionar.Click += new System.EventHandler(this.btnCadastra_Click);
             // 
+            // btnMenuBuscar
+            // 
+            this.btnMenuBuscar.FlatAppearance.BorderSize = 0;
+            this.btnMenuBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMenuBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.btnMenuBuscar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnMenuBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMenuBuscar.Location = new System.Drawing.Point(33, 207);
+            this.btnMenuBuscar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMenuBuscar.Name = "btnMenuBuscar";
+            this.btnMenuBuscar.Size = new System.Drawing.Size(175, 60);
+            this.btnMenuBuscar.TabIndex = 5;
+            this.btnMenuBuscar.Text = "&Buscar";
+            this.btnMenuBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMenuBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnMenuBuscar.UseVisualStyleBackColor = true;
+            this.btnMenuBuscar.Click += new System.EventHandler(this.btnBusca_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.RosyBrown;
+            this.label1.Font = new System.Drawing.Font("Showcard Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label1.Location = new System.Drawing.Point(522, 74);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(425, 50);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "AGENDA DE TAREFAS";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(407, 60);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(87, 79);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -134,17 +168,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(167, 161);
             this.panel3.TabIndex = 2;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(407, 60);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(87, 79);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
             // 
             // lblMensagem
             // 
@@ -190,18 +213,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(0, 25);
             this.toolStrip1.TabIndex = 19;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.RosyBrown;
-            this.label1.Font = new System.Drawing.Font("Showcard Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Location = new System.Drawing.Point(522, 74);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(425, 50);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "AGENDA DE TAREFAS";
             // 
             // tbpBuscar
             // 
@@ -400,17 +411,6 @@
             this.tabControlPrincipal.Size = new System.Drawing.Size(896, 342);
             this.tabControlPrincipal.TabIndex = 9;
             // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.Transparent;
-            this.panel4.Controls.Add(this.btnMenuAdicionar);
-            this.panel4.Controls.Add(this.btnMenuBuscar);
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(212, 535);
-            this.panel4.TabIndex = 17;
-            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
-            // 
             // Sistema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -432,15 +432,15 @@
             this.Load += new System.EventHandler(this.Sistema_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.tbpBuscar.ResumeLayout(false);
             this.tbpBuscar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTarefas)).EndInit();
             this.tbpCadastrar.ResumeLayout(false);
             this.tbpCadastrar.PerformLayout();
             this.tabControlPrincipal.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
