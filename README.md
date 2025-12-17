@@ -1,109 +1,88 @@
-# 📋 Agenda de Tarefas
+# 📒 Agenda de Tarefas
 
-Projeto desenvolvido em **C# (Windows Forms)** com integração a **banco de dados SQL**, com o objetivo de gerenciar tarefas de forma simples, permitindo cadastrar, visualizar, editar e excluir registros.
+Sistema de agenda desenvolvido em **C# (Windows Forms)**, com integração a **banco de dados MySQL**, permitindo o gerenciamento de tarefas por meio das operações básicas de um CRUD.
 
----
-
-## 🎯 Objetivo do Projeto
-
-O sistema tem como finalidade organizar tarefas, armazenando-as em um banco de dados e exibindo-as em uma interface gráfica.  
-O projeto foi desenvolvido com foco didático, aplicando conceitos de **CRUD**, **conexão com banco de dados** e **manipulação de dados em DataGridView**.
+O projeto foi desenvolvido com fins **acadêmicos**, com foco no entendimento prático de conexão com banco de dados, uso de procedures e manipulação de dados em interface gráfica.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- C#
-- Windows Forms
-- SQL Server / MySQL (dependendo da configuração do banco)
-- ADO.NET
-- DataGridView
+- **C#**
+- **Windows Forms**
+- **MySQL**
+- **SQL (Stored Procedures)**
+
+### Ferramentas
+- Visual Studio  
+- MySQL Workbench  
+- Aiven
 
 ---
 
-## 📂 Estrutura do Projeto
+## ⚙️ Funcionalidades do Sistema
 
-### Program.cs
-Arquivo inicial da aplicação. Responsável por iniciar o sistema e abrir o formulário principal. Não contém regras de negócio.
-
----
-
-### Formulário Principal
-Responsável pela interface gráfica do sistema.  
-Contém:
-- Campos de entrada de dados (tarefa, data, status)
-- Botões para inserir, editar e excluir tarefas
-- DataGridView para exibição dos dados
-
-Toda a lógica do sistema está concentrada no formulário, incluindo a conexão com o banco e a execução dos comandos SQL.
+- Cadastrar tarefas  
+- Listar tarefas cadastradas  
+- Buscar tarefas pelo título  
+- Editar tarefas existentes  
+- Remover tarefas  
+- Definir status da tarefa (Pendente / Concluída)
 
 ---
 
-### Conexão com o Banco de Dados
-A conexão com o banco é feita diretamente no formulário utilizando `SqlConnection` e uma **connection string**.  
-A conexão é aberta apenas no momento da execução do comando e fechada logo após, evitando desperdício de recursos.
+## 📋 Tela de Listagem de Tarefas
 
----
-
-### Banco de Dados
-O banco de dados possui uma tabela responsável por armazenar as tarefas.  
-Cada registro contém um **ID único**, que é utilizado para identificar corretamente as tarefas durante operações de edição e exclusão.
-
----
-
-### Caixa de ID (oculta)
-O sistema utiliza uma caixa de texto invisível para armazenar o ID da tarefa selecionada no DataGridView.  
-Esse ID não é exibido ao usuário, pois é um dado técnico usado apenas internamente para garantir que operações de UPDATE e DELETE sejam feitas no registro correto.
-
----
-
-### DataGridView
-Utilizado para exibir as tarefas cadastradas no banco de dados.  
-Sempre que uma tarefa é inserida, editada ou excluída, os dados são buscados novamente no banco e o DataGridView é atualizado.
-
----
-
-## 🔄 Funcionalidades
-
-- Cadastrar tarefas
-- Listar tarefas
-- Editar tarefas
-- Excluir tarefas
-- Visualizar dados em tempo real no DataGridView
-
----
-
-## 🔁 Fluxo de Funcionamento
-
-1. O usuário preenche os campos do formulário
-2. Clica em um botão de ação (Salvar, Editar ou Excluir)
-3. O sistema executa o comando SQL correspondente
-4. O banco de dados retorna o resultado
-5. O DataGridView é atualizado com os dados mais recentes
-
----
-
-## 🖼️ Telas do Sistema
-
-### 📋 Listagem de Tarefas
 Tela responsável por exibir todas as tarefas cadastradas no banco de dados.  
-Permite buscar, selecionar uma tarefa e realizar ações como editar ou remover.
+Utiliza um **DataGridView** para apresentação dos dados, permitindo selecionar uma tarefa e executar ações de **edição** ou **remoção**, além da funcionalidade de **busca**.
 
-![Tela de Listagem](imagens/tela_listagem.png)
-
----
-
-### ➕ Cadastro de Tarefas
-Tela utilizada para cadastrar novas tarefas no sistema.  
-O usuário informa o título da tarefa, a data e o status, e salva no banco de dados.
-
-![Tela de Cadastro](imagens/tela_cadastro.png)
-
-
-
-## 📌 Observações
-
-Este projeto foi desenvolvido com fins acadêmicos, priorizando clareza e simplicidade na implementação, sem separação em camadas como DAO ou Repository, por se tratar de um sistema introdutório.
+![Tela de Listagem](https://raw.githubusercontent.com/biancaserafim/AgendaTarefas/main/imagens/tela_listagem.png)
 
 ---
 
+## ➕ Tela de Cadastro de Tarefas
+
+Tela utilizada para o cadastro de novas tarefas no sistema.  
+O usuário informa:
+- Descrição da tarefa  
+- Data  
+- Status  
+
+Após o preenchimento, os dados são salvos diretamente no banco de dados.
+
+![Tela de Cadastro](https://raw.githubusercontent.com/biancaserafim/AgendaTarefas/main/imagens/tela_cadastro.png)
+
+---
+
+## 🗄️ Banco de Dados
+
+O sistema utiliza **MySQL** como banco de dados, com acesso realizado por meio da biblioteca `MySql.Data`.
+
+As operações de listagem, inserção, atualização e remoção são realizadas utilizando **Stored Procedures**, garantindo maior organização e segurança nas consultas SQL.
+
+---
+
+## 🧠 Estrutura do Projeto
+
+- **Forms (Windows Forms)**  
+  Responsáveis pela interface gráfica e interação com o usuário.
+
+- **Classe de Conexão**  
+  Centraliza a conexão com o banco de dados e executa as procedures.
+
+- **DataGridView**  
+  Utilizado para exibir e selecionar registros do banco de dados.
+
+---
+
+## 📌 Observações Importantes
+
+Este projeto **não utiliza separação em camadas** como DAO ou Repository.  
+Essa decisão foi intencional, pois o objetivo é **didático**, focado no aprendizado inicial de:
+
+- CRUD  
+- Conexão com banco de dados  
+- Uso de Stored Procedures  
+- Integração entre interface gráfica e banco  
+
+---
