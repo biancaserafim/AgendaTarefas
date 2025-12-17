@@ -100,6 +100,7 @@ O usuário informa o título da tarefa, a data e o status, e salva no banco de d
 ![Tela de Cadastro](imagens/tela_cadastro.png)
 
 
+
 ## 📌 Observações
 
 Este projeto foi desenvolvido com fins acadêmicos, priorizando clareza e simplicidade na implementação, sem separação em camadas como DAO ou Repository, por se tratar de um sistema introdutório.
